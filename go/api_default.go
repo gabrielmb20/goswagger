@@ -67,6 +67,15 @@ func findAuthor(x string) int {
 	return -1
 }
 
+func copyAuthor(x string) Author {
+	for i, author := range authors {
+		if x == author.AuthorId {
+			return author
+		}
+	}
+	return Author{}
+}
+
 func findPublisher(x string) int {
 	for i, publisher := range publishers {
 		if x == publisher.PublisherId {
@@ -115,7 +124,7 @@ func AuthorsAuthorIdPut(w http.ResponseWriter, r *http.Request) {
         }
         authors = append(authors[:i], authors[i+1:]...)
 
-	oldAuthor := copyBook(id)
+	oldAuthor := copyAuthor(id)
 
 	len := r.ContentLength
 	body := make([]byte, len)
