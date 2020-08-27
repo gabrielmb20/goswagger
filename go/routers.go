@@ -106,7 +106,7 @@ var routes = Routes{
 		"AuthorsPost",
 		strings.ToUpper("Post"),
 		"/authors/",
-		BooksPost,
+		AuthorsPost,
 	},
 	Route{
 		"PublishersPublisherIdDelete",
