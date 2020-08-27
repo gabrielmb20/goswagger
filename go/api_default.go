@@ -50,7 +50,7 @@ func findBook(x string) int {
 }
 
 func copyBook(x string) Book {
-	for i, book := range books {
+	for _, book := range books {
 		if x == book.BookId {
 			return book
 		}
@@ -68,7 +68,7 @@ func findAuthor(x string) int {
 }
 
 func copyAuthor(x string) Author {
-	for i, author := range authors {
+	for _, author := range authors {
 		if x == author.AuthorId {
 			return author
 		}
