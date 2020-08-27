@@ -13,7 +13,6 @@ import (
 	"net/http"
 	"path"
 	"fmt"
-	"log"
 )
 
 var books = []Book{
@@ -50,15 +49,6 @@ func findBook(x string) int {
 	return -1
 }
 
-func copyBook(x string) Book {
-	for _, book := range books {
-		if x == book.BookId {
-			return book
-		}
-	}
-	return Book{}
-}
-
 func findAuthor(x string) int {
 	for i, author := range authors {
 		if x == author.AuthorId {
@@ -66,15 +56,6 @@ func findAuthor(x string) int {
 		}
 	}
 	return -1
-}
-
-func copyAuthor(x string) Author {
-	for i, author := range authors {
-		if x == author.AuthorId {
-			return authors[i]
-		}
-	}
-	return Author{}
 }
 
 func findPublisher(x string) int {
@@ -119,15 +100,14 @@ func AuthorsAuthorIdGet(w http.ResponseWriter, r *http.Request) {
 func AuthorsAuthorIdPut(w http.ResponseWriter, r *http.Request) {
 	id := path.Base(r.URL.Path)
         i := findAuthor(id)
-	log.Printf("i: ", i)
         if i == -1 {
                 //return
                 fmt.Println("Id Invalido")
         }
         authors = append(authors[:i], authors[i+1:]...)
 
-	oldAuthor := copyAuthor(id)
-	log.Printf("TEST", oldAuthor)
+	oldAuthor,_ = authors[i]
+	log.Printf("TEST",oldAuthor)
 
 	len := r.ContentLength
 	body := make([]byte, len)
@@ -139,7 +119,7 @@ func AuthorsAuthorIdPut(w http.ResponseWriter, r *http.Request) {
 	for index, item := range books {
 		if item.AuthorId == id {
 			authors = append(authors[:index], authors[index+1:]...)
-			if updateAuthor.BookId != "" {
+			if updateAuthor.Title != "" {
 				oldAuthor.BookId = updateAuthor.BookId
 			}
 			if updateAuthor.Name != "" {
