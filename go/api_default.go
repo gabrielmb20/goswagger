@@ -109,8 +109,8 @@ func AuthorsAuthorIdPut(w http.ResponseWriter, r *http.Request) {
         authors = append(authors[:i], authors[i+1:]...)
 
 	oldAuthor := Author{}
-	json.Unmarshal(authors[i], &oldAuthor)
-	log.Printf("TEST",oldAuthor)
+	//json.Unmarshal(authors[i], &oldAuthor)
+	log.Printf("TEST",authors[i])
 
 	len := r.ContentLength
 	body := make([]byte, len)
