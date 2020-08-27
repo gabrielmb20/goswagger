@@ -133,6 +133,6 @@ var routes = Routes{
 		"PublishersPost",
 		strings.ToUpper("Post"),
 		"/publishers/",
-		PublisherPost,
+		PublishersPost,
 	},
 }
