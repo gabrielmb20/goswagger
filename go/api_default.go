@@ -14,6 +14,7 @@ import (
 	"path"
 	"fmt"
 	"log"
+	"github.com/gorilla/mux"
 )
 
 var books = []Book{
@@ -98,52 +99,70 @@ func AuthorsAuthorIdGet(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
 
+
 func AuthorsAuthorIdPut(w http.ResponseWriter, r *http.Request) {
-	log.Printf("AUTHORS: ", authors)
-	id := path.Base(r.URL.Path)
-        i := findAuthor(id)
-        if i == -1 {
-                //return
-                fmt.Println("Id Invalido")
-        }
-        authors = append(authors[:i], authors[i+1:]...)
-
-	oldAuthor := Author{}
-	json.Unmarshal([]byte(authors[i]), &oldAuthor)
-	log.Printf("oldAuthor:    ",oldAuthor)
-
-	len := r.ContentLength
-	body := make([]byte, len)
-	r.Body.Read(body)
-	updateAuthor := Author{}
-	json.Unmarshal(body, &updateAuthor)
-
-
-	for index, item := range books {
-		if item.AuthorId == id {
-			authors = append(authors[:index], authors[index+1:]...)
-			if updateAuthor.BookId != "" {
-				oldAuthor.BookId = updateAuthor.BookId
-			}
-			if updateAuthor.Name != "" {
-				oldAuthor.Name = updateAuthor.Name
-			}
-			if updateAuthor.Nationality != "" {
-				oldAuthor.Nationality = updateAuthor.Nationality
-			}
-			if updateAuthor.Birth != "" {
-				oldAuthor.Birth = updateAuthor.Birth
-			}
-			if updateAuthor.Genere != "" {
-				oldAuthor.Genere = updateAuthor.Genere
-			}
-			//log.Println(oldAuthor)
-			authors = append(authors, oldAuthor)
-			json.NewEncoder(w).Encode(authors)
+	w.Header().Set("Content-Type", "application/json")
+	params := mux.Vars(r)
+	AuthorId := params["AuthorId"]
+	for i, author := range authors {
+		if author.AuthorId == AuthorId {
+			authors = append(authors[:i], authors[i+1:]...)
+			var updatedAuthor Author
+			json.NewDecoder(r.Body).Decode(&updatedAuthor)
+			authors = append(authors, updatedAuthor)
+			json.NewEncoder(w).Encode(updatedAuthor)
+			return
 		}
 	}
-	return
 }
+
+
+
+//func AuthorsAuthorIdPut(w http.ResponseWriter, r *http.Request) {
+//	log.Printf("AUTHORS: ", authors)
+//	id := path.Base(r.URL.Path)
+//        i := findAuthor(id)
+//        if i == -1 {
+//                //return
+//                fmt.Println("Id Invalido")
+//        }
+//        authors = append(authors[:i], authors[i+1:]...)
+//
+//	oldAuthor := authors[id]
+//	log.Printf("TEST",oldAuthor)
+//
+//	len := r.ContentLength
+//	body := make([]byte, len)
+//	r.Body.Read(body)
+//	updateAuthor := Author{}
+//	json.Unmarshal(body, &updateAuthor)
+//
+//
+//	for index, item := range books {
+//		if item.AuthorId == id {
+//			authors = append(authors[:index], authors[index+1:]...)
+//			if updateAuthor.BookId != "" {
+//				oldAuthor.BookId = updateAuthor.BookId
+//			}
+//			if updateAuthor.Name != "" {
+//				oldAuthor.Name = updateAuthor.Name
+//			}
+//			if updateAuthor.Nationality != "" {
+//				oldAuthor.Nationality = updateAuthor.Nationality
+//			}
+//			if updateAuthor.Birth != "" {
+//				oldAuthor.Birth = updateAuthor.Birth
+//			}
+//			if updateAuthor.Genere != "" {
+//				oldAuthor.Genere = updateAuthor.Genere
+//			}
+//			//log.Println(oldAuthor)
+//			authors = append(authors, oldAuthor)
+//			json.NewEncoder(w).Encode(authors)
+//		}
+//	}
+//	return
+//}
 
 func AuthorsPost(w http.ResponseWriter, r *http.Request) {
 	var author Author
