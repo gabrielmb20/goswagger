@@ -74,6 +74,7 @@ func copyAuthor(x string) Author {
 			return author
 		}
 	}
+	return Author{}
 }
 
 func findPublisher(x string) int {
@@ -118,6 +119,7 @@ func AuthorsAuthorIdGet(w http.ResponseWriter, r *http.Request) {
 func AuthorsAuthorIdPut(w http.ResponseWriter, r *http.Request) {
 	id := path.Base(r.URL.Path)
         i := findAuthor(id)
+	log.Printf("i: ", i)
         if i == -1 {
                 //return
                 fmt.Println("Id Invalido")
