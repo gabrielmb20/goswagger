@@ -81,4 +81,31 @@ var routes = Routes{
 		"/books/",
 		BooksPost,
 	},
+	Route{
+		"AuthorsAuthorIdDelete",
+		strings.ToUpper("Delete"),
+		"/authors/{authorId}",
+		AuthorsAuthorIdDelete,
+	},
+
+	Route{
+		"AuthorsAuthorIdGet",
+		strings.ToUpper("Get"),
+		"/authors/{authorId}",
+		AuthorsAuthorIdGet,
+	},
+
+	Route{
+		"AuthorsAuthorIdPut",
+		strings.ToUpper("Put"),
+		"/authors/{authorId}",
+		AuthorsAuthorIdPut,
+	},
+
+	Route{
+		"AuthorsPost",
+		strings.ToUpper("Post"),
+		"/authors/",
+		BooksPost,
+	},
 }
