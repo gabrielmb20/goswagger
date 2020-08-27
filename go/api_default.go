@@ -105,6 +105,7 @@ func AuthorsAuthorIdPut(w http.ResponseWriter, r *http.Request) {
                 fmt.Println("Id Invalido")
         }
         authors = append(authors[:i], authors[i+1:]...)
+	oldAuthor := Author{}
 	oldAuthor = authors[id]
 
 	len := r.ContentLength
