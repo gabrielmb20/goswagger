@@ -99,6 +99,7 @@ func AuthorsAuthorIdGet(w http.ResponseWriter, r *http.Request) {
 }
 
 func AuthorsAuthorIdPut(w http.ResponseWriter, r *http.Request) {
+	log.Printf("AUTHORS: ", authors)
 	id := path.Base(r.URL.Path)
         i := findAuthor(id)
         if i == -1 {
@@ -107,7 +108,7 @@ func AuthorsAuthorIdPut(w http.ResponseWriter, r *http.Request) {
         }
         authors = append(authors[:i], authors[i+1:]...)
 
-	oldAuthor,_ := json.Marshal(authors[i])
+	oldAuthor := authors[i]
 	log.Printf("TEST",oldAuthor)
 
 	len := r.ContentLength
