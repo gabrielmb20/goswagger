@@ -12,6 +12,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"path"
+	"fmt"
 )
 
 var books = []Book{
