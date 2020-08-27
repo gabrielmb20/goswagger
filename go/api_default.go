@@ -148,13 +148,12 @@ func BooksBookIdPut(w http.ResponseWriter, r *http.Request) {
 	//id := path.Base(r.URL.Path)
 	params := mux.Vars(r)
 	for index, item := range books {
-		if item.BookId == params["BookId"] {
+		if item.BookId == params["bookId"] {
 			books = append(books[:index], books[index+1:]...)
 
 			var book Book
 			_ = json.NewDecoder(r.Body).Decode(book)
 			book.BookId = params["bookId"]
-			book.Title = params["title"]
 			books = append(books, book)
 			json.NewEncoder(w).Encode(&book)
 
