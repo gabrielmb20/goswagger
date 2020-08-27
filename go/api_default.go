@@ -157,7 +157,7 @@ func BooksBookIdPut(w http.ResponseWriter, r *http.Request) {
 	updateBook := Book{}
 	json.Unmarshal(body, &updateBook)
 
-	updateBook.bookId = id
+	updateBook.BookId = id
 	books = append(books, updateBook)
 	json.NewEncoder(w).Encode(books)
 
