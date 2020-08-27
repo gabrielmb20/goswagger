@@ -68,7 +68,7 @@ func findAuthor(x string) int {
 	return -1
 }
 
-func copyAuthor(x string) *Author {
+func copyAuthor(x string) []Author {
 	for _, author := range authors {
 		if x == author.AuthorId {
 			return author
