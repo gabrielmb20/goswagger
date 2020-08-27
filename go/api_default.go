@@ -67,15 +67,6 @@ func findPublisher(x string) int {
 	return -1
 }
 
-func getAuthor(x string) Author {
-        for i, author := range authors {
-                if x == author.AuthorId {
-                        return i
-                }
-        }
-        return -1
-}
-
 func AuthorsAuthorIdBooksGet(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
@@ -108,12 +99,13 @@ func AuthorsAuthorIdGet(w http.ResponseWriter, r *http.Request) {
 
 func AuthorsAuthorIdPut(w http.ResponseWriter, r *http.Request) {
 	id := path.Base(r.URL.Path)
-        oldAuthor := getAuthor(id)
-        if oldAuthor == -1 {
+        i := findAuthor(id)
+        if i == -1 {
                 //return
                 fmt.Println("Id Invalido")
         }
-        authors = append(authors[:oldAuthor], authors[oldAuthor+1:]...)
+        authors = append(authors[:i], authors[i+1:]...)
+	oldAuthor := json.Marshal(authors[id])
 
 	len := r.ContentLength
 	body := make([]byte, len)
