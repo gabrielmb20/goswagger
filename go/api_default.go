@@ -115,7 +115,15 @@ func BooksBookIdAuthorsGet(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
 
+
 func BooksBookIdDelete(w http.ResponseWriter, r *http.Request) {
+	id := path.Base(r.URL.Path)
+	i := findBook(id)
+	if i == -1 {
+		//return
+		fmt.Println("Id Invalido")
+	}
+	books = append(books[:i], books[i+1:]...)
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 }
