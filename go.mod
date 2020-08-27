@@ -1,3 +1,3 @@
-module github.com/gabrielmb20/gowebservices/go
+module github.com/gabrielmb20/goswagger
 
 go 1.12
