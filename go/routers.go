@@ -108,4 +108,31 @@ var routes = Routes{
 		"/authors/",
 		BooksPost,
 	},
+	Route{
+		"PublishersPublisherIdDelete",
+		strings.ToUpper("Delete"),
+		"/publishers/{publisherId}",
+		PublishersPublisherIdDelete,
+	},
+
+	Route{
+		"PublishersPublisherIdGet",
+		strings.ToUpper("Get"),
+		"/publishers/{publisherId}",
+		PublishersPublisherIdGet,
+	},
+
+	Route{
+		"PublishersPublisherIdPut",
+		strings.ToUpper("Put"),
+		"/publishers/{publisherId}",
+		PublishersPublisherIdPut,
+	},
+
+	Route{
+		"PublishersPost",
+		strings.ToUpper("Post"),
+		"/publishers/",
+		PublisherPost,
+	},
 }
