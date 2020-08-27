@@ -109,6 +109,7 @@ func AuthorsAuthorIdPut(w http.ResponseWriter, r *http.Request) {
 			authors = append(authors[:i], authors[i+1:]...)
 			var updatedAuthor Author
 			json.NewDecoder(r.Body).Decode(&updatedAuthor)
+			log.Printf("updatedAuthor: ",updatedAuthor)
 			authors = append(authors, updatedAuthor)
 			json.NewEncoder(w).Encode(updatedAuthor)
 			return
