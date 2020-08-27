@@ -15,10 +15,18 @@ import (
 )
 
 var books = []Book{
-	Book{BookId: "1", PublisherId: "1", Title: "Libro 1",
-		Copyright: "2012", Edition: "5th", Pages: "976"},
-	Book{BookId: "2", PublisherId: "1", Title: "Libro 2",
-		Copyright: "2010", Edition: "9th", Pages: "1500"},
+	Book{BookId: "Book1", Title: "Operating System Concepts", Edition: "9th",
+        Copyright: "2012", Language: "ENGLISH", Pages: "976",
+        Author: "Abraham Silberschatz", PublisherId: "1"},
+
+	Book{BookId: "Book3", Title: "Computer Networks", Edition: "5th",
+        Copyright: "2010", Language: "ENGLISH", Pages: "960",
+        Author: "Andrew S. Tanenbaum", PublisherId: "2"},
+
+//	Book{BookId: "1", PublisherId: "1", Title: "Libro 1",
+//		Copyright: "2012", Edition: "5th", Pages: "976"},
+//	Book{BookId: "2", PublisherId: "2", Title: "Libro 2",
+//		Copyright: "2010", Edition: "9th", Pages: "1500"},
 }
 
 var authors = []Author{

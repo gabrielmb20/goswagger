@@ -12,13 +12,18 @@ type Book struct {
 
 	BookId string `json:"bookId,omitempty"`
 
-	PublisherId string `json:"publisherId,omitempty"`
-
 	Title string `json:"title,omitempty"`
-
-	Copyright string `json:"copyright,omitempty"`
 
 	Edition string `json:"edition,omitempty"`
 
+	Copyright string `json:"copyright,omitempty"`
+
+	Language string `json:"language,omitempty"`
+
 	Pages string `json:"pages,omitempty"`
+
+	Author string `json:"author,omitempty"`
+
+	PublisherId string `json:"publisherId,omitempty"`
+
 }
