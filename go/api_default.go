@@ -143,41 +143,24 @@ func BooksBookIdPublishersGet(w http.ResponseWriter, r *http.Request) {
 }
 
 func BooksBookIdPut(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
+	id := path.Base(r.URL.Path)
+        i := findBook(id)
+        if i == -1 {
+                //return
+                fmt.Println("Id Invalido")
+        }
+        books = append(books[:i], books[i+1:]...)
+
 	len := r.ContentLength
 	body := make([]byte, len)
 	r.Body.Read(body)
 	updateBook := Book{}
 	json.Unmarshal(body, &updateBook)
-	id := path.Base(r.URL.Path)
-	oldBook := findBook(id)
-	for index, item := range books {
-		if item.BookId == id {
-			books = append(books[:index], books[index+1:]...)
-			if updateBook.Title != "" {
-				oldBook.Title = updateBook.Title
-			}
-			if updateBook.Edition != "" {
-				oldBook.Edition = updateBook.Edition
-			}
-			if updateBook.Copyright != "" {
-				oldBook.Copyright = updateBook.Copyright
-			}
-			if updateBook.Pages != "" {
-				oldBook.Pages = updateBook.Pages
-			}
-			if updateBook.AuthorId != "" {
-				oldBook.AuthorId = updateBook.AuthorId
-			}
-			if updateBook.PublisherId != "" {
-				oldBook.PublisherId = updateBook.PublisherId
-			}
 
-			//log.Println(oldBook)
-			books = append(books, oldBook)
-			json.NewEncoder(w).Encode(books)
-		}
-	}
+	updateBook.bookId = id
+	books = append(books, updateBook)
+	json.NewEncoder(w).Encode(books)
+
 
 	return
 }
