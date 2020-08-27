@@ -18,11 +18,9 @@ type Book struct {
 
 	Copyright string `json:"copyright,omitempty"`
 
-	Language string `json:"language,omitempty"`
-
 	Pages string `json:"pages,omitempty"`
 
-	Author string `json:"author,omitempty"`
+	AuthorId string `json:"authorId,omitempty"`
 
 	PublisherId string `json:"publisherId,omitempty"`
 
