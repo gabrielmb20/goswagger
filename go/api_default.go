@@ -132,7 +132,7 @@ func BooksBookIdGet(w http.ResponseWriter, r *http.Request) {
 	if i == -1 {
 		return
 	}
-	i.Author := findAuthor(
+	i.Author,_ := findAuthor(i.Author)
 	dataJson, _ := json.Marshal(books[i])
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.Write(dataJson)
