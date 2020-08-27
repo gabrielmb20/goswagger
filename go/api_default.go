@@ -104,6 +104,7 @@ func AuthorsAuthorIdPut(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
 	var originalProduct map[Author]interface{}
+	log.Printf("Original: ", originalProduct)
 	id := params["authorId"]
 	for i, author := range authors {
 		if author.AuthorId == id {
