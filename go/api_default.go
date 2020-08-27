@@ -152,25 +152,25 @@ func BooksBookIdPut(w http.ResponseWriter, r *http.Request) {
 	id := path.Base(r.URL.Path)
 	oldBook := findBook(id)
 	for index, item := range books {
-		if item.bookId == id {
+		if item.BookId == id {
 			books = append(books[:index], books[index+1:]...)
-			if updateBook.title != "" {
-				oldBook.title = updateBook.title
+			if updateBook.Title != "" {
+				oldBook.Title = updateBook.Title
 			}
-			if updateBook.edition != "" {
-				oldBook.edition = updateBook.edition
+			if updateBook.Edition != "" {
+				oldBook.Edition = updateBook.Edition
 			}
-			if updateBook.copyright != "" {
-				oldBook.copyright = updateBook.copyright
+			if updateBook.Copyright != "" {
+				oldBook.Copyright = updateBook.Copyright
 			}
-			if updateBook.pages != "" {
-				oldBook.pages = updateBook.pages
+			if updateBook.Pages != "" {
+				oldBook.Pages = updateBook.Pages
 			}
-			if updateBook.authorId != "" {
-				oldBook.authorId = updateBook.authorId
+			if updateBook.AuthorId != "" {
+				oldBook.AuthorId = updateBook.AuthorId
 			}
-			if updateBook.publisherId != "" {
-				oldBook.publisherId = updateBook.publisherId
+			if updateBook.PublisherId != "" {
+				oldBook.PublisherId = updateBook.PublisherId
 			}
 
 			//log.Println(oldBook)
