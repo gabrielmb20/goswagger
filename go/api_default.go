@@ -106,7 +106,8 @@ func AuthorsAuthorIdPut(w http.ResponseWriter, r *http.Request) {
         }
         authors = append(authors[:i], authors[i+1:]...)
 	oldAuthor := Author{}
-	oldAuthor = authors[id]
+	
+	oldAuthor = authors[:id]
 
 	len := r.ContentLength
 	body := make([]byte, len)
