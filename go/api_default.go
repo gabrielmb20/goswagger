@@ -22,10 +22,10 @@ var books = []Book{
 }
 
 var authors = []Author{
-	Author{AuthorId: "1", BookId: "1", Name: "OSCAR", Nationality: "Costa Rica",
+	Author{AuthorId: "1", BookId: "1", Name: "Gabriel Martínez", Nationality: "Costa Rica",
 		Birth: "1990", Genere: "First"},
-	Author{AuthorId: "2", BookId: "2", Name: "MARIO", Nationality: "Costa Rica",
-		Birth: "1991", Genere: "Second"},
+	Author{AuthorId: "2", BookId: "2", Name: "José Barboza", Nationality: "Costa Rica",
+		Birth: "1990", Genere: "Second"},
 }
 
 var publishers = []Publisher{
