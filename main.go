@@ -5,7 +5,7 @@
 package main
 
 import (
-    sw "github.com/gabrielmb20/gowebservices/go/go"
+    sw "github.com/gabrielmb20/goswagger/go"
     "log"
     "net/http"
     "os"
