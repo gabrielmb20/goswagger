@@ -93,7 +93,6 @@ func AuthorsAuthorIdGet(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	dataJson, _ := json.Marshal(authors[i])
-	log.Printf("GET: ", dataJson)
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.Write(dataJson)
 	w.WriteHeader(http.StatusOK)
@@ -109,8 +108,8 @@ func AuthorsAuthorIdPut(w http.ResponseWriter, r *http.Request) {
         }
         authors = append(authors[:i], authors[i+1:]...)
 
-	oldAuthor := authors[i]
-	log.Printf("TEST",oldAuthor)
+	oldAuthor,_ := json.Unmarshall(authors[i])
+	log.Printf("oldAuthor:    ",oldAuthor)
 
 	len := r.ContentLength
 	body := make([]byte, len)
