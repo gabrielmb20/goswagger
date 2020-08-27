@@ -122,19 +122,19 @@ func AuthorsAuthorIdPut(w http.ResponseWriter, r *http.Request) {
 		if item.AuthorId == id {
 			authors = append(authors[:index], authors[index+1:]...)
 			if updateAuthor.BookId != "" {
-				oldAuthor[1] = updateAuthor.BookId
+				oldAuthor.BookId = updateAuthor.BookId
 			}
 			if updateAuthor.Name != "" {
-				oldAuthor[2] = updateAuthor.Name
+				oldAuthor.Name = updateAuthor.Name
 			}
 			if updateAuthor.Nationality != "" {
-				oldAuthor[3] = updateAuthor.Nationality
+				oldAuthor.Nationality = updateAuthor.Nationality
 			}
 			if updateAuthor.Birth != "" {
-				oldAuthor[4] = updateAuthor.Birth
+				oldAuthor.Birth = updateAuthor.Birth
 			}
 			if updateAuthor.Genere != "" {
-				oldAuthor[5] = updateAuthor.Genere
+				oldAuthor.Genere = updateAuthor.Genere
 			}
 			//log.Println(oldAuthor)
 			authors = append(authors, oldAuthor)
