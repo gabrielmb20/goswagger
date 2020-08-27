@@ -74,7 +74,6 @@ func copyAuthor(x string) Author {
 			return author
 		}
 	}
-	return Author{}
 }
 
 func findPublisher(x string) int {
