@@ -98,6 +98,24 @@ func AuthorsAuthorIdGet(w http.ResponseWriter, r *http.Request) {
 }
 
 func AuthorsAuthorIdPut(w http.ResponseWriter, r *http.Request) {
+	id := path.Base(r.URL.Path)
+        i := findAuthor(id)
+        if i == -1 {
+                //return
+                fmt.Println("Id Invalido")
+        }
+        authors = append(authors[:i], authors[i+1:]...)
+
+	len := r.ContentLength
+	body := make([]byte, len)
+	r.Body.Read(body)
+	updateAuthor := Author{}
+	json.Unmarshal(body, &updateAuthor)
+
+	updateAuthor.AuthorId = id
+	authors = append(authors, updateAuthor)
+	json.NewEncoder(w).Encode(authors)
+
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 }
@@ -168,6 +186,7 @@ func BooksBookIdPut(w http.ResponseWriter, r *http.Request) {
 	books = append(books, updateBook)
 	json.NewEncoder(w).Encode(books)
 
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 }
 
@@ -226,6 +245,24 @@ func PublishersPublisherIdGet(w http.ResponseWriter, r *http.Request) {
 }
 
 func PublishersPublisherIdPut(w http.ResponseWriter, r *http.Request) {
+	id := path.Base(r.URL.Path)
+        i := findPublisher(id)
+        if i == -1 {
+                //return
+                fmt.Println("Id Invalido")
+        }
+        publishers = append(publishers[:i], publishers[i+1:]...)
+
+	len := r.ContentLength
+	body := make([]byte, len)
+	r.Body.Read(body)
+	updatePublisher := Publisher{}
+	json.Unmarshal(body, &updatePublisher)
+
+	updatePublisher.PublisherId = id
+	publishers = append(publishers, updatePublisher)
+	json.NewEncoder(w).Encode(publishers)
+
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 }
