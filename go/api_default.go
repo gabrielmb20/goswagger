@@ -102,6 +102,7 @@ func AuthorsAuthorIdPut(w http.ResponseWriter, r *http.Request) {
 	log.Printf("AUTHORS: ", authors)
 	id := path.Base(r.URL.Path)
         i := findAuthor(id)
+	log.Printf("TEST",authors[i])
         if i == -1 {
                 //return
                 fmt.Println("Id Invalido")
@@ -110,7 +111,6 @@ func AuthorsAuthorIdPut(w http.ResponseWriter, r *http.Request) {
 
 	oldAuthor := Author{}
 	//json.Unmarshal(authors[i], &oldAuthor)
-	log.Printf("TEST",authors[i])
 
 	len := r.ContentLength
 	body := make([]byte, len)
