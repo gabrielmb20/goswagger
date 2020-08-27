@@ -73,6 +73,13 @@ func AuthorsAuthorIdBooksGet(w http.ResponseWriter, r *http.Request) {
 }
 
 func AuthorsAuthorIdDelete(w http.ResponseWriter, r *http.Request) {
+	id := path.Base(r.URL.Path)
+	i := findAuthor(id)
+	if i == -1 {
+		//return
+		fmt.Println("Id Invalido")
+	}
+	authors = append(authors[:i], authors[i+1:]...)
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 }
@@ -161,8 +168,7 @@ func BooksBookIdPut(w http.ResponseWriter, r *http.Request) {
 	books = append(books, updateBook)
 	json.NewEncoder(w).Encode(books)
 
-
-	return
+	w.WriteHeader(http.StatusOK)
 }
 
 func BooksPost(w http.ResponseWriter, r *http.Request) {
@@ -195,6 +201,13 @@ func PublishersPublisherIdBooksGet(w http.ResponseWriter, r *http.Request) {
 }
 
 func PublishersPublisherIdDelete(w http.ResponseWriter, r *http.Request) {
+	id := path.Base(r.URL.Path)
+	i := findPublisher(id)
+	if i == -1 {
+		//return
+		fmt.Println("Id Invalido")
+	}
+	publishers = append(publishers[:i], publishers[i+1:]...)
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 }
