@@ -18,11 +18,11 @@ import (
 var books = []Book{
 	Book{BookId: "Book1", Title: "Book1", Edition: "9th",
         Copyright: "2012", Pages: "976",
-        AuthorId: "1", PublisherId: "1"},
+        Author: "1", PublisherId: "1"},
 
-	Book{BookId: "Book2", Title: "Book2", Edition: "9th",
-        Copyright: "2012", Pages: "976",
-        AuthorId: "2", PublisherId: "2"},
+//	Book{BookId: "Book2", Title: "Book2", Edition: "9th",
+//        Copyright: "2012", Pages: "976",
+//        AuthorId: "2", PublisherId: "2"},
 
 }
 
@@ -132,6 +132,7 @@ func BooksBookIdGet(w http.ResponseWriter, r *http.Request) {
 	if i == -1 {
 		return
 	}
+	i.Author := findAuthor(
 	dataJson, _ := json.Marshal(books[i])
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.Write(dataJson)
