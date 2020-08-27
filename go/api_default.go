@@ -103,10 +103,12 @@ func AuthorsAuthorIdGet(w http.ResponseWriter, r *http.Request) {
 func AuthorsAuthorIdPut(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
-	id := params["authorId"]
-	log.Printf("bookId: ",params["bookId"])
+	authorId := params["authorId"]
+	bookId := params["bookId"]
+	log.Printf("authorId: ", authorId)
+	log.Printf("bookId: ", bookId)
 	for i, author := range authors {
-		if author.AuthorId == id {
+		if author.AuthorId == authorId {
 			authors = append(authors[:i], authors[i+1:]...)
 			var updatedAuthor Author
 			json.NewDecoder(r.Body).Decode(&updatedAuthor)
