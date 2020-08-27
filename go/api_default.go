@@ -108,7 +108,7 @@ func AuthorsAuthorIdPut(w http.ResponseWriter, r *http.Request) {
         }
         authors = append(authors[:i], authors[i+1:]...)
 
-	oldAuthor := authors[i:]
+	oldAuthor = authors[i:]
 	log.Printf("TEST",oldAuthor)
 
 	len := r.ContentLength
