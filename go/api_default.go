@@ -127,7 +127,7 @@ func AuthorsAuthorIdPut(w http.ResponseWriter, r *http.Request) {
 	for index, item := range books {
 		if item.AuthorId == id {
 			authors = append(authors[:index], authors[index+1:]...)
-			if updateAuthor.Title != "" {
+			if updateAuthor.BookId != "" {
 				oldAuthor.BookId = updateAuthor.BookId
 			}
 			if updateAuthor.Name != "" {
