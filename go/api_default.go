@@ -125,7 +125,6 @@ func BooksBookIdDelete(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
 
-// Obtiene el Book por ID
 func BooksBookIdGet(w http.ResponseWriter, r *http.Request) {
 	id := path.Base(r.URL.Path)
 	i := findBook(id)
@@ -145,7 +144,21 @@ func BooksBookIdPublishersGet(w http.ResponseWriter, r *http.Request) {
 
 func BooksBookIdPut(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
+	id := path.Base(r.URL.Path)
+	for index, item := range books {
+		if item.BookId == id {
+			books = append(books[:index], books[index+1:]...)
+
+			var book Book
+			_ = json.NewDecoder(r.Body).Decode(book)
+			book.BookId = id
+			books = append(books, book)
+			json.NewEncoder(w).Encode(&book)
+
+			return
+		}
+	}
+	json.NewEncoder(w).Encode(books)
 }
 
 func BooksPost(w http.ResponseWriter, r *http.Request) {
