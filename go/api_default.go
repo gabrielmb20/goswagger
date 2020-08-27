@@ -13,7 +13,6 @@ import (
 	"net/http"
 	"path"
 	"fmt"
-	"github.com/gorilla/mux"
 )
 
 var books = []Book{
@@ -153,25 +152,25 @@ func BooksBookIdPut(w http.ResponseWriter, r *http.Request) {
 	id := path.Base(r.URL.Path)
 	oldBook := findBook(id)
 	for index, item := range books {
-		if item.BookId == id {
+		if item.bookId == id {
 			books = append(books[:index], books[index+1:]...)
-			if updateBook.Title != "" {
-				oldBook.Title = updateBook.Title
+			if updateBook.title != "" {
+				oldBook.title = updateBook.title
 			}
-			if updateBook.Edition != "" {
-				oldBook.Edition = updateBook.Edition
+			if updateBook.edition != "" {
+				oldBook.edition = updateBook.edition
 			}
-			if updateBook.Copyright != "" {
-				oldBook.Copyright = updateBook.Copyright
+			if updateBook.copyright != "" {
+				oldBook.copyright = updateBook.copyright
 			}
-			if updateBook.Pages != "" {
-				oldBook.Pages = updateBook.Pages
+			if updateBook.pages != "" {
+				oldBook.pages = updateBook.pages
 			}
-			if updateBook.AuthorId != "" {
-				oldBook.AuthorId = updateBook.AuthorId
+			if updateBook.authorId != "" {
+				oldBook.authorId = updateBook.authorId
 			}
-			if updateBook.PublisherId != "" {
-				oldBook.PublisherId = updateBook.PublisherId
+			if updateBook.publisherId != "" {
+				oldBook.publisherId = updateBook.publisherId
 			}
 
 			//log.Println(oldBook)
