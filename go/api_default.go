@@ -151,7 +151,7 @@ func BooksBookIdPut(w http.ResponseWriter, r *http.Request) {
 		if item.BookId == params["bookId"] {
 			books = append(books[:index], books[index+1:]...)
 
-			var book Book[]
+			var book []Book
 			_ = json.NewDecoder(r.Body).Decode(book)
 			book.BookId = params["bookId"]
 			books = append(books, book)
