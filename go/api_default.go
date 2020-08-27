@@ -144,14 +144,16 @@ func BooksBookIdPublishersGet(w http.ResponseWriter, r *http.Request) {
 
 func BooksBookIdPut(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	id := path.Base(r.URL.Path)
+	//id := path.Base(r.URL.Path)
+	params := mux.Vars(r)
 	for index, item := range books {
-		if item.BookId == id {
+		if item.BookId == params["BookId"] {
 			books = append(books[:index], books[index+1:]...)
 
 			var book Book
 			_ = json.NewDecoder(r.Body).Decode(book)
-			book.BookId = id
+			book.BookId = params["bookId"]
+			book.Title = params["title"]
 			books = append(books, book)
 			json.NewEncoder(w).Encode(&book)
 
