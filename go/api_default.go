@@ -49,6 +49,15 @@ func findBook(x string) int {
 	return -1
 }
 
+func copyBook(x string) Book {
+	for i, book := range books {
+		if x == book.BookId {
+			return book
+		}
+	}
+	return Book{}
+}
+
 func findAuthor(x string) int {
 	for i, author := range authors {
 		if x == author.AuthorId {
@@ -59,8 +68,8 @@ func findAuthor(x string) int {
 }
 
 func findPublisher(x string) int {
-	for i, publishers := range publishers {
-		if x == publishers.PublisherId {
+	for i, publisher := range publishers {
+		if x == publisher.PublisherId {
 			return i
 		}
 	}
@@ -105,7 +114,7 @@ func AuthorsAuthorIdPut(w http.ResponseWriter, r *http.Request) {
                 fmt.Println("Id Invalido")
         }
         authors = append(authors[:i], authors[i+1:]...)
-	
+
 	oldAuthor,_ = json.Marshal(authors[id])
 
 	len := r.ContentLength
