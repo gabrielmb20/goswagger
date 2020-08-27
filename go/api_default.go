@@ -9,59 +9,180 @@
 package swagger
 
 import (
-    "encoding/json"
-    "net/http"
-    "path"
+	"encoding/json"
+	"net/http"
+	"path"
 )
 
 var books = []Book{
-    Book{BookId: "Book1", Title: "Operating System Concepts", Edition: "9th",
-        Copyright: "2012", Language: "ENGLISH", Pages: "976",
-        Author: "Abraham Silberschatz", Publisher: "John Wiley & Sons"},
-    Book{BookId: "Book3", Title: "Computer Networks", Edition: "5th",
-        Copyright: "2010", Language: "ENGLISH", Pages: "960",
-        Author: "Andrew S. Tanenbaum", Publisher: "Andrew S. Tanenbaum"},
+	Book{BookId: "1", PublisherId: "1", Title: "Libro 1",
+		Copyright: "2012", Edition: "5th", Pages: "976"},
+	Book{BookId: "2", PublisherId: "1", Title: "Libro 2",
+		Copyright: "2010", Edition: "9th", Pages: "1500"},
 }
 
-func find(x string) int {
-    for i, book := range books {
-        if x == book.BookId {
-            return i
-        }
-    }
-    return -1
+var authors = []Author{
+	Author{AuthorId: "1", BookId: "1", Name: "OSCAR", Nationality: "Costa Rica",
+		Birth: "1990", Genere: "First"},
+	Author{AuthorId: "2", BookId: "2", Name: "MARIO", Nationality: "Costa Rica",
+		Birth: "1991", Genere: "Second"},
+}
+
+var publishers = []Publisher{
+	Publisher{PublisherId: "1", Name: "Yensie", Country: "Inglaterra", Founded: "Costa Rica",
+		Genere: "First"},
+	Publisher{PublisherId: "2", Name: "Tatiana", Country: "Italia", Founded: "Costa Rica",
+		Genere: "Second"},
+}
+
+func findBook(x string) int {
+	for i, book := range books {
+		if x == book.BookId {
+			return i
+		}
+	}
+	return -1
+}
+
+func findAuthor(x string) int {
+	for i, author := range authors {
+		if x == author.AuthorId {
+			return i
+		}
+	}
+	return -1
+}
+
+func findPublisher(x string) int {
+	for i, publishers := range publishers {
+		if x == publishers.PublisherId {
+			return i
+		}
+	}
+	return -1
+}
+
+func AuthorsAuthorIdBooksGet(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+}
+
+func AuthorsAuthorIdDelete(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+}
+
+// Obtiene el Author por ID
+func AuthorsAuthorIdGet(w http.ResponseWriter, r *http.Request) {
+	id := path.Base(r.URL.Path)
+	i := findAuthor(id)
+	if i == -1 {
+		return
+	}
+	dataJson, _ := json.Marshal(authors[i])
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.Write(dataJson)
+	w.WriteHeader(http.StatusOK)
+}
+
+func AuthorsAuthorIdPut(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+}
+
+func AuthorsPost(w http.ResponseWriter, r *http.Request) {
+	var author Author
+	err := json.NewDecoder(r.Body).Decode(&author)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	authors = append(authors, author)
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+}
+
+func BooksBookIdAuthorsGet(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
 }
 
 func BooksBookIdDelete(w http.ResponseWriter, r *http.Request) {
-    w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-    w.WriteHeader(http.StatusOK)
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
 }
 
+// Obtiene el Book por ID
 func BooksBookIdGet(w http.ResponseWriter, r *http.Request) {
-    id := path.Base(r.URL.Path)
-    i := find(id)
-    if i == -1 {
-        return
-    }
-    dataJson, _ := json.Marshal(books[i])
-    w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-    w.Write(dataJson)
-    w.WriteHeader(http.StatusOK)
+	id := path.Base(r.URL.Path)
+	i := findBook(id)
+	if i == -1 {
+		return
+	}
+	dataJson, _ := json.Marshal(books[i])
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.Write(dataJson)
+	w.WriteHeader(http.StatusOK)
+}
+
+func BooksBookIdPublishersGet(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
 }
 
 func BooksBookIdPut(w http.ResponseWriter, r *http.Request) {
-    w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-    w.WriteHeader(http.StatusOK)
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
 }
 
 func BooksPost(w http.ResponseWriter, r *http.Request) {
-    var book Book
-    err := json.NewDecoder(r.Body).Decode(&book)
-    if err != nil {
-        http.Error(w, err.Error(), http.StatusBadRequest)
-        return
-    }
-    books = append(books, book)
-    w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-    w.WriteHeader(http.StatusOK)
+	var book Book
+	err := json.NewDecoder(r.Body).Decode(&book)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	books = append(books, book)
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+}
+
+func PublishersPost(w http.ResponseWriter, r *http.Request) {
+	var publisher Publisher
+	err := json.NewDecoder(r.Body).Decode(&publisher)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	publishers = append(publishers, publisher)
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+}
+
+func PublishersPublisherIdBooksGet(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+}
+
+func PublishersPublisherIdDelete(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+}
+
+// Obtiene el Publisher por ID
+func PublishersPublisherIdGet(w http.ResponseWriter, r *http.Request) {
+	id := path.Base(r.URL.Path)
+	i := findPublisher(id)
+	if i == -1 {
+		return
+	}
+	dataJson, _ := json.Marshal(publishers[i])
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.Write(dataJson)
+	w.WriteHeader(http.StatusOK)
+}
+
+func PublishersPublisherIdPut(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
 }
