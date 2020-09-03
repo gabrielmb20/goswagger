@@ -43,7 +43,7 @@ func NewRouter() *mux.Router {
 }
 
 func Index(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "GO SWAGGER!")
+	fmt.Fprintf(w, "Hello World!")
 }
 
 var routes = Routes{
@@ -55,32 +55,12 @@ var routes = Routes{
 	},
 
 	Route{
-		"BooksBookIdDelete",
-		strings.ToUpper("Delete"),
-		"/books/{bookId}",
-		BooksBookIdDelete,
-	},
-
-	Route{
-		"BooksBookIdGet",
+		"AuthorsAuthorIdBooksGet",
 		strings.ToUpper("Get"),
-		"/books/{bookId}",
-		BooksBookIdGet,
+		"/authors/{authorId}/books/",
+		AuthorsAuthorIdBooksGet,
 	},
 
-	Route{
-		"BooksBookIdPut",
-		strings.ToUpper("Put"),
-		"/books/{bookId}",
-		BooksBookIdPut,
-	},
-
-	Route{
-		"BooksPost",
-		strings.ToUpper("Post"),
-		"/books/",
-		BooksPost,
-	},
 	Route{
 		"AuthorsAuthorIdDelete",
 		strings.ToUpper("Delete"),
@@ -108,6 +88,63 @@ var routes = Routes{
 		"/authors/",
 		AuthorsPost,
 	},
+
+	Route{
+		"BooksBookIdAuthorsGet",
+		strings.ToUpper("Get"),
+		"/books/{bookId}/authors/",
+		BooksBookIdAuthorsGet,
+	},
+
+	Route{
+		"BooksBookIdDelete",
+		strings.ToUpper("Delete"),
+		"/books/{bookId}",
+		BooksBookIdDelete,
+	},
+
+	Route{
+		"BooksBookIdGet",
+		strings.ToUpper("Get"),
+		"/books/{bookId}",
+		BooksBookIdGet,
+	},
+
+	Route{
+		"BooksBookIdPublishersGet",
+		strings.ToUpper("Get"),
+		"/books/{bookId}/publishers/",
+		BooksBookIdPublishersGet,
+	},
+
+	Route{
+		"BooksBookIdPut",
+		strings.ToUpper("Put"),
+		"/books/{bookId}",
+		BooksBookIdPut,
+	},
+
+	Route{
+		"BooksPost",
+		strings.ToUpper("Post"),
+		"/books/",
+		BooksPost,
+	},
+
+	Route{
+		"PublishersPost",
+		strings.ToUpper("Post"),
+		"/publishers/",
+		PublishersPost,
+	},
+
+	Route{
+		"PublishersPublisherIdBooksGet",
+		strings.ToUpper("Get"),
+		"/publishers/{publisherId}/books/",
+		PublishersPublisherIdBooksGet,
+	},
+
 	Route{
 		"PublishersPublisherIdDelete",
 		strings.ToUpper("Delete"),
@@ -127,12 +164,5 @@ var routes = Routes{
 		strings.ToUpper("Put"),
 		"/publishers/{publisherId}",
 		PublishersPublisherIdPut,
-	},
-
-	Route{
-		"PublishersPost",
-		strings.ToUpper("Post"),
-		"/publishers/",
-		PublishersPost,
 	},
 }
